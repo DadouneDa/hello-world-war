@@ -1,0 +1,4 @@
+FROM tomcat:latest
+MAINTAINER DD
+
+COPY tomcat-users.xml /usr/local/tomcat/conf/
