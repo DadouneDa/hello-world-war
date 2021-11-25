@@ -13,7 +13,8 @@ pipeline {
       steps {
         dir(path: 'hello-world-war') {
           echo "${env.BUILD_ID}"
-          sh 'mvn compile'
+        sh '''mvn compile
+            mvn clean package'''
         }
 
         slackSend(channel: 'dd_devops', color: '#3EA652', message: "Success: Stage 'Compile' on job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
