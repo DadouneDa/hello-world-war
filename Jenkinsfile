@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('CheckOutCode') {
       steps {
-        cleanWs()
+        preBuildCleanup()
         git(url: 'https://github.com/DadouneDa/hello-world-war.git', branch: 'DD-dev', changelog: true, credentialsId: 'github_DD')
         slackSend(channel: 'dd_devops', color: '#3EA652', message: "Success: Stage 'Checkout_Code' on job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
       }
