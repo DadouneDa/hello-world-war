@@ -26,7 +26,7 @@ pipeline {
     stage('DockerBuild') {
       steps {
         sh '''cp ${WORKSPACE}/target/hello-world-war-1.0.0.war ${WORKSPACE}
-                                     docker build .'''
+                                     sudo docker build .'''
       }
     }
 
