@@ -30,5 +30,11 @@ pipeline {
       }
     }
 
+    stage('Nexus') {
+      steps {
+        nexusArtifactUploader(nexusVersion: 'NEXUS3', protocol: 'HTTP', nexusUrl: '3.248.212.67:8081', credentialsId: 'nexus_DD', groupId: 'module6_gid', repository: 'module6-repo', version: 'module6_version')
+      }
+    }
+
   }
 }
