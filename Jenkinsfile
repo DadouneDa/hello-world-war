@@ -26,13 +26,7 @@ pipeline {
     stage('DockerBuild') {
       steps {
         sh '''cp ${WORKSPACE}/target/hello-world-war-1.0.0.war ${WORKSPACE}
-                                     docker build .'''
-      }
-    }
-
-    stage('Docker Tag') {
-      steps {
-        sh 'docker tag $(docker images | grep \\\'<none>\\\' | head -n 1 | awk \\\'{print $3}\\\') java-app:${BUILD_ID}'
+                                     docker build -t module6:${BUILD_ID} .'''
       }
     }
 
