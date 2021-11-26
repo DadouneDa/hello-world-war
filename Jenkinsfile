@@ -30,9 +30,9 @@ pipeline {
       }
     }
 
-    stage('Nexus') {
+    stage('Docker Tag') {
       steps {
-        nexusArtifactUploader(nexusVersion: 'NEXUS3', protocol: 'HTTP', nexusUrl: '3.248.212.67:8081', credentialsId: 'nexus_DD', groupId: 'module6_gid', repository: 'module6-repo', version: 'module6_version')
+        sh 'docker tag $(docker images | grep \\\'<none>\\\' | head -n 1 | awk \\\'{print $3}\\\') java-app:${BUILD_ID}'
       }
     }
 
