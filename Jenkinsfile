@@ -29,6 +29,14 @@ pipeline {
                                      docker build -t module6:${BUILD_ID} .'''
       }
     }
+    stage('Upload_artifact_to_Nexus'){
+            withCredentials([usernamePassword(credentialsId: 'Nexus-Docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                sh label: '', script: '''docker login -u $USERNAME -p $PASSWORD 127.0.0.1:9001 
+                                         docker tag module6:${BUILD_ID} 127.0.0.1:9001/module6:${BUILD_ID}
+                                         docker push 127.0.0.1:9001/module6:${BUILD_ID}
+                                         docker rmi $(docker images --filter=reference="127.0.0.1:9001/module6*" -q) -f
+                                         docker logout 127.0.0.1'''
+            }    
 
   }
 }
