@@ -67,7 +67,7 @@ node('master'){
         currentBuild.result = "FAILED"
         throw e
     } finally {
-        stage('7. Notifying Slack'){
+        stage('Notify Slack - full build'){
             notifyBuild(currentBuild.result)
         }
     }
