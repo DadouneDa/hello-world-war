@@ -1,5 +1,4 @@
 def notifyBuild(String buildStatus = 'STARTED') {
-    // Build status of null means success.
     buildStatus =  buildStatus ?: 'SUCCESS'
 
     if (buildStatus == 'STARTED') {
@@ -10,7 +9,6 @@ def notifyBuild(String buildStatus = 'STARTED') {
         colorCode = '#FF0000'
     }
 
-    // Send notification.
     def msg = "${buildStatus}: `${env.JOB_NAME}` #${env.BUILD_NUMBER}:\n${env.BUILD_URL}"
     slackSend(color: colorCode, message: msg)
 }
@@ -66,11 +64,9 @@ node('master'){
         }
     }
      catch (e) {
-    // If there was an exception thrown, the build failed.
         currentBuild.result = "FAILED"
         throw e
     } finally {
-    // Success or failure, always send notification.
         stage('7. Notifying Slack'){
             notifyBuild(currentBuild.result)
         }
